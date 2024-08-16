@@ -4,9 +4,11 @@ import layout from '../layout'
 
 function page() {
   return (
- 
+    <>
       <History></History>
-     
+
+    </>
+
   )
 }
 
