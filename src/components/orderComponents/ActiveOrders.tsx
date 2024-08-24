@@ -1,7 +1,27 @@
-
-import React from 'react'
+'use client'
+import React, {useEffect} from 'react'
+import { pusher } from '@/utils/pusher';
 
 function ActiveOrders() {
+
+  useEffect(() => {
+
+    const channel = pusher.subscribe('oms-orders');
+
+    // Bind the event to handle new orders
+    channel.bind('new-order', function (data: any) {
+        console.log('New order received:', data);
+        // Update OMS UI here
+    });
+
+
+
+    return () => {
+        channel.unbind_all();
+        channel.unsubscribe();
+    };
+}, [])
+
   return (
     <div className='w-full border '>
         <table className='w-full'>
