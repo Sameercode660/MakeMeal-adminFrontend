@@ -62,6 +62,8 @@ function ActiveOrders() {
                     customerName={order.user.name}
                     mobile={order.user.phoneNumber}
                     fetchOrder={fetchOrder}
+                    updateStatus={'prepared'}
+                    cancelChecked={false}
                   ></OrderList>
                 ))
               )

@@ -6,18 +6,19 @@ import { Button } from './ui/button'
 import { updateOrder } from '@/utils/updateOrder'
 import Cloading from './Cloading'
 
-function OrderList({ orderId, orderNumber, amount, status, items, time, customerName, mobile, fetchOrder }: any) {
+function OrderList({ orderId, orderNumber, amount, status, items, time, customerName, mobile, fetchOrder, updateStatus, cancelChecked }: any) {
 
     const [openOrderDetailBox, setOpenOrderDetailBox] = useState<boolean>(false)
     const [preparedOrderLoading, setPreparedOrderLoading] = useState<boolean>(false)
+    const [cancelOrderLoading, setCancelOrderLoading] = useState<boolean>(false)
 
     async function orderPrepared() {
         try {
             setPreparedOrderLoading(true)
-            const response = await updateOrder(orderId, status, 'prepared')
-            
+            const response = await updateOrder(orderId, status, updateStatus)
+
             console.log(response)
-            
+
             setPreparedOrderLoading(false)
 
             await fetchOrder('preparing')
@@ -27,11 +28,15 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
     }
     async function cancelOrder() {
         try {
+            setCancelOrderLoading(true)
+
             const response = await updateOrder(orderId, status, 'cancel')
 
             console.log(response)
 
             await fetchOrder('preparing')
+
+            setCancelOrderLoading(false)
         } catch (error) {
             console.log(error)
         }
@@ -53,9 +58,14 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
                 <div className='w-[20%] text-center'>
                     <span>{amount}</span>
                 </div>
-                <div className='w-[20%] text-center'>
-                    <Button variant={'outline'} onClick={orderPrepared}>{preparedOrderLoading ? <Cloading width={30} hight={30}></Cloading>: status}</Button>
-                </div>
+
+                {
+                    cancelChecked ? ('') : (
+                        <div className='w-[20%] text-center'>
+                            <Button variant={'outline'} onClick={orderPrepared}>{preparedOrderLoading ? <Cloading width={30} hight={30}></Cloading> : status}</Button>
+                        </div>
+                    )
+                }
                 <div className='w-[20%] text-center'>
                     <span>Online</span>
                 </div>
@@ -105,9 +115,12 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
                             </table>
                         </div>
                         <div className='w-full flex justify-center items-center gap-2'>
-                            <div>
-                                <Button variant={'outline'} className='bg-red-700 text-white' onClick={cancelOrder}>CancelOrder</Button>
-                            </div>
+
+                            {
+                                cancelChecked ? ('') : (<div>
+                                    <Button variant={'outline'} className='bg-red-700 text-white' onClick={cancelOrder}>{cancelOrderLoading ? <Cloading width={30} hight={30}></Cloading> : 'CancelOrder'}</Button>
+                                </div>)
+                            }
                             <div>
                                 <Button variant={'outline'} className='bg-green-500' onClick={() => {
                                     setOpenOrderDetailBox(false)
