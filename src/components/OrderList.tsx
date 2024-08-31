@@ -5,12 +5,14 @@ import Logo from '@/assets/MakeMeal.png'
 import { Button } from './ui/button'
 import { updateOrder } from '@/utils/updateOrder'
 import Cloading from './Cloading'
+import axios from 'axios'
 
 function OrderList({ orderId, orderNumber, amount, status, items, time, customerName, mobile, fetchOrder, updateStatus, cancelChecked }: any) {
 
     const [openOrderDetailBox, setOpenOrderDetailBox] = useState<boolean>(false)
     const [preparedOrderLoading, setPreparedOrderLoading] = useState<boolean>(false)
     const [cancelOrderLoading, setCancelOrderLoading] = useState<boolean>(false)
+    const [printLoading, setPrintLoading] = useState<boolean>(false)
 
     async function orderPrepared() {
         try {
@@ -21,7 +23,7 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
 
             setPreparedOrderLoading(false)
 
-            await fetchOrder('preparing')
+            await fetchOrder(status)
         } catch (error) {
             console.log(error)
         }
@@ -34,13 +36,42 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
 
             console.log(response)
 
-            await fetchOrder('preparing')
+            await fetchOrder(status)
 
             setCancelOrderLoading(false)
         } catch (error) {
             console.log(error)
         }
     }
+
+    async function printBill() {
+        try {
+
+            setPrintLoading(true)
+            
+            const data = {
+                orderId: orderId
+            }
+            
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/order/generate-bill`, data, {responseType: 'blob'})
+            
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            
+            const link = document.createElement('a')
+            
+            link.href = url
+            
+            link.setAttribute('download', 'order-bill.pdf')
+            
+            link.click()
+            
+            setPrintLoading(false)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <>
             <div className='w-full flex justify-center h-[3rem] items-center p-1 bg-blue-100 m-1'>
@@ -62,7 +93,7 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
                 {
                     cancelChecked ? ('') : (
                         <div className='w-[20%] text-center'>
-                            <Button variant={'outline'} onClick={orderPrepared}>{preparedOrderLoading ? <Cloading width={30} hight={30}></Cloading> : status}</Button>
+                            <Button variant={'outline'} onClick={orderPrepared}>{preparedOrderLoading ? <Cloading width={30} hight={30}></Cloading> : updateStatus}</Button>
                         </div>
                     )
                 }
@@ -70,7 +101,7 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
                     <span>Online</span>
                 </div>
                 <div className='w-[20%] text-center' >
-                    <span>print</span>
+                    <Button variant="outline" onClick={printBill}>{printLoading ? <Cloading width={30} hight={30}></Cloading> : 'Print' } </Button>
                 </div>
             </div>
             {
