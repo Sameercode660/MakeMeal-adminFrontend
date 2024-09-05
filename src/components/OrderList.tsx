@@ -48,23 +48,23 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
         try {
 
             setPrintLoading(true)
-            
+
             const data = {
                 orderId: orderId
             }
-            
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/order/generate-bill`, data, {responseType: 'blob'})
-            
+
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/order/generate-bill`, data, { responseType: 'blob' })
+
             const url = window.URL.createObjectURL(new Blob([response.data]))
-            
+
             const link = document.createElement('a')
-            
+
             link.href = url
-            
+
             link.setAttribute('download', 'order-bill.pdf')
-            
+
             link.click()
-            
+
             setPrintLoading(false)
 
         } catch (error) {
@@ -91,22 +91,30 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
                 </div>
 
                 {
-                    cancelChecked ? ('') : (
-                        <div className='w-[20%] text-center'>
-                            <Button variant={'outline'} onClick={orderPrepared}>{preparedOrderLoading ? <Cloading width={30} hight={30}></Cloading> : updateStatus}</Button>
-                        </div>
+                    status == 'close' ? '' : (
+                        cancelChecked ? ('') : (
+                            <div className='w-[20%] text-center'>
+                                <Button variant={'outline'} onClick={orderPrepared}>{preparedOrderLoading ? <Cloading width={30} hight={30}></Cloading> : updateStatus}</Button>
+                            </div>
+                        )
                     )
                 }
                 <div className='w-[20%] text-center'>
                     <span>Online</span>
                 </div>
                 <div className='w-[20%] text-center' >
-                    <Button variant="outline" onClick={printBill}>{printLoading ? <Cloading width={30} hight={30}></Cloading> : 'Print' } </Button>
+                    <Button variant="outline" onClick={printBill}>{printLoading ? <Cloading width={30} hight={30}></Cloading> : 'Print'} </Button>
                 </div>
             </div>
             {
-                openOrderDetailBox === true ? (<div className='w-full h-screen fixed top-0 transition-all ease-in duration-200 bg-[rgba(0,0,0,0.1)] z-[200] flex justify-center items-center'>
-                    <div className='w-[600px] h-[400px] bg-white border rounded-xl p-2 flex flex-col items-center gap-5 overflow-y-auto'>
+                openOrderDetailBox === true ? (<div className='w-full h-screen fixed top-0 transition-all ease-in duration-200 bg-[rgba(0,0,0,0.1)] z-[200] flex justify-center items-center' onClick={() => {
+                    setOpenOrderDetailBox(false)
+                }}>
+                    <div className='w-[600px] h-[400px] bg-white border rounded-xl p-2 flex flex-col items-center gap-5 overflow-y-auto'
+                        onClick={(e) => {
+                            e.stopPropagation()
+                        }}
+                    >
                         <div className='text-center'>
                             <h1 className='text-xl font-semibold'>Order Details</h1>
                         </div>
@@ -116,18 +124,18 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
                             </span>
                         </div>
                         <div className='w-full'>
-                            <table className='w-full flex justify-center items-center flex-col'>
-                                <tr className='w-full border flex justify-evenly p-2 bg-[rgba(0,0,0,0.1)]'>
-                                    <th>Item</th>
-                                    <th>Qty</th>
-                                    <th>Amount</th>
+                            <table className='w-full'>
+                                <tr className='w-full bg-orange-200 h-[2.1rem]'>
+                                    <th className='border text-center p-1'>Item</th>
+                                    <th className='border text-center p-1'>Qty</th>
+                                    <th className='border text-center p-1'>Amount</th>
                                 </tr>
                                 {
                                     items.map((item: any) => (
-                                        <tr key={item.productId} className='border w-full flex justify-evenly p-2'>
-                                            <td>{item.name.length > 20 ? item.name.slice(0, 20) + '..' : item.name}</td>
-                                            <td>{item.quantity}</td>
-                                            <td>{item.price}</td>
+                                        <tr key={item.productId} className='w-full h-[2.1rem]'>
+                                            <td className='border text-center p-1'>{item.name.length > 20 ? item.name.slice(0, 20) + '..' : item.name}</td>
+                                            <td className='border text-center p-1'>{item.quantity}</td>
+                                            <td className='border text-center p-1'>{item.price}</td>
                                         </tr>
                                     ))
                                 }
@@ -148,9 +156,9 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
                         <div className='w-full flex justify-center items-center gap-2'>
 
                             {
-                                cancelChecked ? ('') : (<div>
+                                status == 'close' ? '' : (cancelChecked ? ('') : (<div>
                                     <Button variant={'outline'} className='bg-red-700 text-white' onClick={cancelOrder}>{cancelOrderLoading ? <Cloading width={30} hight={30}></Cloading> : 'CancelOrder'}</Button>
-                                </div>)
+                                </div>))
                             }
                             <div>
                                 <Button variant={'outline'} className='bg-green-500' onClick={() => {
