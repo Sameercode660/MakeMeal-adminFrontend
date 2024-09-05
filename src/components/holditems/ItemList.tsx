@@ -47,7 +47,7 @@ function ItemList({ productId, name, availability, fetchOrder }: any) {
     }
     return (
         <div className='w-full flex justify-between p-2 border-b'>
-            <div className='w-full flex justify-center'>
+            <div className='w-full flex justify-start pl-5'>
                 <span className='text-lg font-semibold'>{name}</span>
             </div>
             <div className='w-full flex justify-center' >
