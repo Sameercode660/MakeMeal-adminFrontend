@@ -14,7 +14,6 @@ function ActiveOrders() {
     try {
       const response = await fetchData('preparing')
 
-      console.log(response)
       setData(response?.data.response)
       setLoading(false)
 

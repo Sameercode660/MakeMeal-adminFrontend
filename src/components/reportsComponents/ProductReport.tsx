@@ -36,7 +36,6 @@ function ProductReport() {
       setQuantity(response.data.quantity)      
       setTotalPrice(response.data.totalPrice)      
       setLoading(false)
-      console.log(data)
 
     } catch (error) {
       console.log(error)

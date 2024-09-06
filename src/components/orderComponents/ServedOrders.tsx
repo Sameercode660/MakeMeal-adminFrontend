@@ -14,7 +14,6 @@ function ServedOrders() {
     try {
       const response = await fetchData('served')
 
-      console.log(response)
       setData(response?.data.response)
       setLoading(false)
 

@@ -19,8 +19,6 @@ function OrderList({ orderId, orderNumber, amount, status, items, time, customer
             setPreparedOrderLoading(true)
             const response = await updateOrder(orderId, status, updateStatus)
 
-            console.log(response)
-
             setPreparedOrderLoading(false)
 
             await fetchOrder(status)

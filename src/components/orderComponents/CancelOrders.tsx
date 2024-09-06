@@ -15,7 +15,6 @@ function CancelOrders() {
     try {
       const response = await fetchData('cancel')
 
-      console.log(response)
       setData(response?.data.response)
       setLoading(false)
 

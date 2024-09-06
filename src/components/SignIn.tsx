@@ -7,6 +7,8 @@ import Logo from '@/assets/MakeMeal.png'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
+import { useSetRecoilState } from 'recoil'
+import { UserAuthenticationAtom } from '@/recoil/UserAuthentication'
 
 function SignIn() {
 
@@ -18,6 +20,8 @@ function SignIn() {
   const [passwordError, setPasswordError] = useState<boolean>(false)
 
   const [loading, setLoading] = useState<boolean>(false)
+
+  const setLogin = useSetRecoilState(UserAuthenticationAtom)
 
   const router = useRouter()
 
@@ -39,14 +43,11 @@ function SignIn() {
         password
       }
 
-      console.log(data)
-
       const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/auth/admin`, data)
-
-      console.log(response)
-
       setLoading(false)
-      router.push('/home')
+      setLogin(true)
+      localStorage.setItem("name", response.data.response.name)
+      router.push('/home/orders')
 
     } catch (error) {
       console.log(error)

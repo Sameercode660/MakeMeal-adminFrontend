@@ -20,7 +20,6 @@ function page() {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/order/oms-fetch-complaint`, { status: 'OPEN' })
       setData(response.data.response)
       setLoadig(false)
-      console.log(response)
     } catch (error) {
       console.log(error)
     }

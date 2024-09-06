@@ -5,9 +5,9 @@ import React from 'react'
 export function layout({children}: {children: React.ReactNode}) {
     return (
         <>
-            {/* <ProtectedRoute> */}
+            <ProtectedRoute>
                 <Home>{children}</Home>
-            {/* </ProtectedRoute> */}
+            </ProtectedRoute>
         </>
     )
 }

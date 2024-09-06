@@ -32,10 +32,8 @@ function SalesReport() {
       
       
       setData(response.data.data)
-      console.log(response.data.data)
       
       setLoading(false)
-      console.log(data)
 
     } catch (error) {
       console.log(error)

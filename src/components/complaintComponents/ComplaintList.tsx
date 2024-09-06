@@ -31,7 +31,6 @@ function ComplaintList({ complaintId, orderId, name, mobile, category, user, ord
 
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/order/oms-complaint-remark`, data)
 
-            console.log(response)
             setSubmitLoading(false)
             setRemarkDialogBox(false)
             handleFetchOpenComaplaint()

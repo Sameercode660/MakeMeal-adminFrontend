@@ -8,8 +8,11 @@ import { FaHistory } from "react-icons/fa";
 import { FaRegStopCircle } from "react-icons/fa";
 import { TbReportSearch } from "react-icons/tb";
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 function Home({children}: {children: React.ReactNode}) {
+
+    const router = useRouter()
     return (
         <div className='w-full h-screen'>
             <div className='w-full h-[5rem] bg-gradient-to-r from-slate-400 to-indigo-600 fixed top-0 flex justify-between pl-20 pr-20'>
@@ -20,8 +23,10 @@ function Home({children}: {children: React.ReactNode}) {
                     <h1 className='text-white font-serif font-semibold text-3xl'>Make Meal</h1>
                 </div>
                 <div className='flex flex-col justify-center'>
-                    <span className='text-white'>Username</span>
-                    <Button variant={'outline'}>Logout</Button>
+                    <span className='text-white'>{localStorage.getItem("name")}</span>
+                    <Button variant={'outline'} onClick={() => {
+                        router.push("/")
+                    }}>Logout</Button>
                 </div>
             </div>
             <div className='w-full h-full flex'>

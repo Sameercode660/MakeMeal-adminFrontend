@@ -33,12 +33,11 @@ function page() {
         orderNumber: orderNumber || null,
         mobileNumber: mobileNumber || null
       }
-      console.log(data)
 
 
       const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/order/oms-search-order`, data)
 
-      console.log(response)
+
       setData(response.data.response)
       setLoading(false)
 

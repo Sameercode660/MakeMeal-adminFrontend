@@ -20,7 +20,6 @@ function ItemList({ productId, name, availability, fetchOrder }: any) {
             
             const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/order/oms-product-hold`, data)
             
-            console.log(response)
             setLoading(false)
             fetchOrder()
         }catch(error){

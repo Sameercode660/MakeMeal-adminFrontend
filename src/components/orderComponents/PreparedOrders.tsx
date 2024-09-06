@@ -16,7 +16,6 @@ function PreparedOrders() {
         try {
             const response = await fetchData('prepared')
 
-            console.log(response)
             setData(response?.data.response)
             setLoading(false)
 
