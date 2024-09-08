@@ -94,6 +94,7 @@ function Hold() {
             loading === true ? (<Loader></Loader>) : (
               data.map((item: any) => (
                 <ItemList
+                key={item.productId}
                 productId={item.productId}
                 name={item.name}
                 availability={item.availability}

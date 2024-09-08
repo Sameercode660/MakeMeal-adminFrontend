@@ -55,6 +55,7 @@ function PreparedOrders() {
                             ) : (
                                 data.map((order: any) => (
                                     <OrderList
+                                        key={order.id}
                                         orderId={order.id}
                                         orderNumber={order.orderNumber}
                                         amount={order.totalPrice}
