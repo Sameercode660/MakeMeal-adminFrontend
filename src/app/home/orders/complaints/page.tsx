@@ -7,7 +7,7 @@ import axios from 'axios'
 import ComplaintList from '@/components/complaintComponents/ComplaintList'
 import Loader from '@/components/Loader'
 
-function page() {
+function Page() {
 
 
   const [loading, setLoadig] = useState<boolean>(true)
@@ -64,4 +64,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

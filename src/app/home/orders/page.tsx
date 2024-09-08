@@ -2,7 +2,7 @@ import ActiveOrders from '@/components/orderComponents/ActiveOrders'
 import Orders from '@/components/Orders'
 import React from 'react'
 
-function page() {
+function Page() {
   return (
     <div>
       <ActiveOrders></ActiveOrders>
@@ -10,4 +10,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

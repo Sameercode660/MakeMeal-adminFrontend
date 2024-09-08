@@ -2,7 +2,7 @@ import Hold from '@/components/Hold'
 import React from 'react'
 
 
-function page() {
+function Page() {
   return (
     <div className='w-full h-screen'>  
       <Hold></Hold>
@@ -10,4 +10,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

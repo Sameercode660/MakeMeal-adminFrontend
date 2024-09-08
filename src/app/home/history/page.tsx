@@ -9,7 +9,7 @@ import axios from 'axios'
 import Loader from '@/components/Loader'
 import OrderList from '@/components/OrderList'
 
-function page() {
+function Page() {
 
   const [startDate, setStartDate] = useState<string>('')
   const [endDate, setEndDate] = useState<string>('')
@@ -126,4 +126,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

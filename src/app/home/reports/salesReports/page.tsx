@@ -1,7 +1,7 @@
 import SalesReport from '@/components/reportsComponents/SalesReport'
 import React from 'react'
 
-function page() {
+function Page() {
   return (
     <>
         <SalesReport></SalesReport>
@@ -9,4 +9,4 @@ function page() {
   )
 }
 
-export default page
+export default Page

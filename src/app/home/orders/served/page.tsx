@@ -4,7 +4,7 @@
 import ServedOrders from '@/components/orderComponents/ServedOrders'
 import React from 'react'
 
-function page() {
+function Page() {
   return (
     <div>
       <ServedOrders></ServedOrders>
@@ -12,4 +12,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
