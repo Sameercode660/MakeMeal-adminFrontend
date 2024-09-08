@@ -1,3 +1,5 @@
+'use client'
+
 import ProductReport from '@/components/reportsComponents/ProductReport'
 import React from 'react'
 

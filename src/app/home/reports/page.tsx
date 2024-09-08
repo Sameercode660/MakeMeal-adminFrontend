@@ -1,3 +1,5 @@
+'use client'
+
 import Reports from '@/components/Reports'
 import React from 'react'
 import Link from 'next/link'

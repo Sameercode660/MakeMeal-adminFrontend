@@ -1,3 +1,5 @@
+'use client'
+
 import Hold from '@/components/Hold'
 import React from 'react'
 
