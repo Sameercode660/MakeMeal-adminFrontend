@@ -46,9 +46,9 @@ function SignIn() {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/auth/admin`, data)
       setLoading(false)
       setLogin(true)
-      if (typeof window !== undefined) {
-        localStorage?.setItem("name", response.data.response.name)
-      }
+      // if (typeof window !== undefined) {
+      //   localStorage?.setItem("name", response.data.response.name)
+      // }
       router.push('/home/orders')
 
     } catch (error) {

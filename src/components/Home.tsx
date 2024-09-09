@@ -23,7 +23,7 @@ function Home({children}: {children: React.ReactNode}) {
                     <h1 className='text-white font-serif font-semibold text-3xl'>Make Meal</h1>
                 </div>
                 <div className='flex flex-col justify-center'>
-                    <span className='text-white'>{typeof window !== undefined ? localStorage.getItem("name"): 'Admin'}</span>
+                    <span className='text-white'>Admin</span>
                     <Button variant={'outline'} onClick={() => {
                         router.push("/")
                     }}>Logout</Button>
