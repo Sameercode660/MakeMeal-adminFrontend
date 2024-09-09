@@ -4,7 +4,7 @@ import { atom, RecoilRoot } from "recoil";
 
 export const UserAuthenticationAtom = atom({
     key: 'userAuthentication',
-    default: false
+    default: true
 })
 
 
